@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Campus Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Campus Chatbot Dashboard</h1>
+
+        <section>
+            <h2>Upcoming Events</h2>
+            <ul>
+                {% for event in events %}
+                    <li>
+                        <strong>{{ event['name'] }}</strong> - {{ event['date'] }} at {{ event['venue'] }} 
+                        <form method="POST" action="/register_event">
+                            <input type="hidden" name="student_id" value="ST001">
+                            <input type="hidden" name="event_id" value="{{ event['event_id'] }}">
+                            <button type="submit">Register</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Scholarships</h2>
+            <ul>
+                {% for s in scholarships %}
+                    <li>{{ s['name'] }} - Last Date: {{ s['last_date'] }} - Apply: <a href="{{ s['apply_link'] }}">Link</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Certificates</h2>
+            <ul>
+                {% for c in certificates %}
+                    <li><a href="{{ c['certificate_link'] }}">Download Certificate</a></li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section>
+            <h2>Class Schedules</h2>
+            <ul>
+                {% for s in schedules %}
+                    <li>{{ s['subject'] }} - {{ s['day'] }} - {{ s['time'] }} at {{ s['venue'] }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
